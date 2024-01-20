@@ -1,0 +1,19 @@
+version: '3.6'
+
+services:
+  poc-dotnet-api:
+    container_name: poc-dotnet-api
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=123456
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/root/.aspnet/https/poc-dotnet-api.pfx
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - C:/Users/patha/.aspnet/https:/root/.aspnet/https:ro
+      - C:/Users/patha/AppData/Roaming/microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
